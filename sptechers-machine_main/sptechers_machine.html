@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPTecher's Machine</title>
+</head>
+<nav>
+    <div>
+        <a href="https://www.sptech.school/" target="_blank"><img class="nav_img" src="sptech_logo_1_cereja.png" alt="Logo SPTech"></a>
+    </div>
+    <div>
+        <br>
+        <h1><b>SPTecher's Machine</b></h1>
+    </div>
+    <div>
+        <br>
+        <h1>Desenvolvido por:</h1>
+    </div>
+    <div>
+        <p>Leonardo Fernandes - 1CCOA</p>
+        <p>&</p>
+        <p>Lucas Canuto - 1CCOA</p>
+    </div>
+</nav>
+<style>
+    body {
+        color: white;
+        text-align: center;
+        font-family: Cambria;
+        background-image: url(Fundooficial.JPG);
+        background-size: cover;
+        background-repeat: repeat-y;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        margin-top: 130px;
+    }
+
+    .ipt {
+        border-radius: 10px;
+        height: 25px;
+        width: 250px;
+    }
+
+
+    .button {
+        border-radius: 10px;
+        height: 25px;
+        width: 125px;
+    }
+
+
+    .buttonOp {
+        border-radius: 10px;
+        height: 25px;
+        width: 50px;
+    }
+
+
+    .div_conversor {
+        background-color: darkslategrey;
+        width: 400px;
+        height: 360px;
+        align-items: center;
+        border: 10px solid rgb(0, 0, 0);
+        border-radius: 10px;
+    }
+
+    .div_resultado {
+        background-color: darkslategrey;
+        width: 400px;
+        height: 100px;
+        align-items: center;
+        border: 10px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: large;
+    }
+
+
+    .div_historico {
+        background-color: darkslategrey;
+        width: 400px;
+        height: 590px;
+        border: 10px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        font-size: large;
+    }
+
+
+    .div_calculadora {
+        background-color: darkslategrey;
+        width: 400px;
+        height: 590px;
+        border: 10px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        font-size: large;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-evenly;
+        background-color: black;
+        background-size: cover;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .nav_img {
+        height: 100px;
+    }
+</style>
+
+
+
+<body>
+    <div class="container">
+        <div id="div2" class="div_historico">
+            <br><button onclick="limpar_historico()" class="button">Limpar histórico</button>
+            <h1><b>Histórico:</b></h1><br>
+        </div>
+        <div class="div_conversor_resultado">
+            <div class="div_conversor">
+                <h1>SPTecher's Machine</h1>
+                <h3>Digite um número decimal:</h3>
+                <input type="number" id="ipt_numero" placeholder="Ex: 595" class="ipt">
+                <br>
+                <br>
+                <br>
+                <h3>Insira a base para a qual será convertida:</h3>
+                <select id="ipt_base_final" class="ipt">
+                    <option value="Binário">Base 2 (Sistema Binário)</option>
+                    <option value="Octal">Base 8 (Sistema Octal)</option>
+                    <option value="Hexadecimal">Base 16 (Sistema Hexadecimal)</option>
+                </select>
+                <br>
+                <br>
+                <button onclick="converter()" class="button">Converter</button>
+                <br>
+                <button onclick="limpar_resultado()" class="button">Limpar Resultado</button>
+            </div>
+            <br><br>
+            <div id="div1" class="div_resultado">O resultado da conversão é: <br></div>
+        </div>
+
+        <div class="div_calculadora">
+            <h1><b>Calculadora</b></h1>
+            <br>
+            <h3>Digite o primeiro número decimal:</h3>
+            <input type="number" id="ipt_numeroCalc1" class="ipt">
+            <br>
+            <br>
+            <h3>Digite o segundo número decimal:</h3>
+            <input type="number" id="ipt_numeroCalc2" class="ipt">
+            <br>
+            <h3>Clique no operador desejado:</h3>
+            <button class="buttonOp" onclick="sum()">+</button>
+            <button class="buttonOp" onclick="minus()">-</button>
+            <button class="buttonOp" onclick="multi()">*</button>
+            <button class="buttonOp" onclick="divide()">/</button>
+            <br>
+            <br>
+            <div id="div_calc"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var contador_clic = 0;
+
+    function converter() {
+        contador_clic += 1;
+        var numero = Number(ipt_numero.value);
+        var baseFinal = ipt_base_final.value;
+        var resultado = 0;
+
+        if (baseFinal == 'Binário') {
+            resultado = numero.toString(2);
+        } else if (baseFinal == 'Octal') {
+            resultado = numero.toString(8);
+        } else if (baseFinal == 'Hexadecimal') {
+            resultado = numero.toString(16);
+        }
+
+        div1.innerHTML = `O resultado da conversão é: ${resultado}`;
+
+        if (contador_clic < 21) {
+            div2.innerHTML += `${numero} (decimal) = ${resultado} (${baseFinal})<br>`
+        } else {
+            div2.innerHTML += ``
+        }
+    }
+
+    function limpar_historico() {
+        div2.innerHTML = `<br><button onclick="limpar_historico()" class="button">Limpar histórico</button>
+                          <h1><b>Histórico:</b></h1><br>`;
+        contador_clic = 0;
+    }
+
+
+    function sum() {
+        var num1 = Number(ipt_numeroCalc1.value);
+        var num2 = Number(ipt_numeroCalc2.value);
+        var resultado = num1 + num2;
+
+        div_calc.innerHTML = `Resultado: ${resultado}`;
+    }
+
+    function minus() {
+        var num1 = Number(ipt_numeroCalc1.value);
+        var num2 = Number(ipt_numeroCalc2.value);
+        var resultado = num1 - num2;
+
+        div_calc.innerHTML = `Resultado: ${resultado}`;
+    }
+
+    function multi() {
+        var num1 = Number(ipt_numeroCalc1.value);
+        var num2 = Number(ipt_numeroCalc2.value);
+        var resultado = num1 * num2;
+
+        div_calc.innerHTML = `Resultado: ${resultado}`;
+    }
+
+    function divide() {
+        var num1 = Number(ipt_numeroCalc1.value);
+        var num2 = Number(ipt_numeroCalc2.value);
+        var resultado = num1 / num2;
+
+        div_calc.innerHTML = `Resultado: ${resultado}`;
+    }
+
+    function limpar_resultado() {
+        div1.innerHTML = `O resultado da conversão é: `;
+        contador_clic = 0;
+    }
+</script>
+
+</html>
